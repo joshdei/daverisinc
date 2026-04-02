@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Pricing — Daveris Tech</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --cream: #f0ead8;
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --muted: #6b6456;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+
+  .logo span { color: var(--white); }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 7rem 2.5rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 1.08;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    text-align: center;
+    padding: 5rem 2.5rem 3rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+
+  .section-header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    margin: 0 0 6rem;
+  }
+
+  /* ── SITE CARD ── */
+  .site-card {
+    background: var(--black);
+    padding: 2.5rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .site-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.4s ease;
+  }
+
+  .site-card:hover { background: #111; }
+  .site-card:hover::after { width: 100%; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .site-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(201,168,76,0.12);
+    letter-spacing: 0.05em;
+  }
+
+  .industry-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+  }
+
+  .site-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+
+  .site-url {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-bottom: 1.2rem;
+  }
+  .site-url:hover { color: var(--gold); }
+
+  .site-desc {
+    font-size: 0.85rem;
+    color: #8a8070;
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+  }
+
+  /* Features list */
+  .features {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .features li {
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .features li::before {
+    content: '↗';
+    color: var(--gold);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* Price block */
+  .price-block {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .price-currency {
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-weight: 500;
+    padding-bottom: 0.3rem;
+  }
+
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--gold-light);
+    letter-spacing: 0.03em;
+  }
+
+  .price-note {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 0.65rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    font-weight: 500;
+  }
+  .cta-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-section {
+    padding: 0 2.5rem 6rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .summary-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+    color: var(--white);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  thead tr {
+    border-bottom: 1px solid var(--gold);
+  }
+
+  th {
+    text-align: left;
+    padding: 0.7rem 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--white);
+    vertical-align: middle;
+  }
+
+  tr:hover td { background: rgba(201,168,76,0.04); }
+
+  td.price-cell {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--gold-light);
+  }
+
+  td .badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2rem;
+    font-weight: 500;
+  }
+
+  .total-row td {
+    border-top: 1px solid var(--gold);
+    padding-top: 1.2rem;
+    font-weight: 500;
+    color: var(--gold-light);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    padding: 5rem 2.5rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .cta-footer h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .cta-footer h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .cta-footer p {
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  .cta-footer .big-btn {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--black);
+    background: var(--gold);
+    padding: 1rem 3rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .cta-footer .big-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .footer-bar {
+    padding: 1.5rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    header { padding: 1.2rem 1.5rem; }
+    nav { display: none; }
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .grid { grid-template-columns: 1fr; }
+    .site-card { padding: 2rem 1.5rem; }
+    .summary-section { padding: 0 1.5rem 4rem; }
+    th, td { padding: 0.7rem 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Daveris<span> Tech</span></div>
+  <nav>
+    <a href="#sites">Portfolio</a>&nbsp;&nbsp;&nbsp;
+    <a href="#summary">Pricing</a>&nbsp;&nbsp;&nbsp;
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero fade-up">
+  <div class="hero-tag">Website Pricing Guide · 2025</div>
+  <h1>Each Site.<br>Its <em>True Worth.</em></h1>
+  <p>Below is a transparent breakdown of what it costs to build each site in our portfolio — from concept to complete, production-ready website.</p>
+</section>
+
+<!-- SITES GRID -->
+<div class="section-header fade-up" id="sites">
+  <h2>Portfolio Breakdown</h2>
+  <p>8 sites · All custom-designed · No templates used</p>
+</div>
+
+<div class="grid">
+
+  <!-- 1. ARDEX ENERGY -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">01</div>
+      <div class="industry-badge">Oil & Gas</div>
+    </div>
+    <div class="site-name">Ardex Energy</div>
+    <a href="https://joshdei.github.io/ardex-energy/" target="_blank" class="site-url">joshdei.github.io/ardex-energy</a>
+    <p class="site-desc">Enterprise-grade corporate site for a global oil & gas company with live ticker feeds, animated operations map, sustainability section, and investor relations portal.</p>
+    <ul class="features">
+      <li>Live commodity price ticker (animated)</li>
+      <li>Multi-section: About, Services, Operations, Sustainability, News</li>
+      <li>Stats counters & operations monitor</li>
+      <li>Full responsive design</li>
+      <li>Corporate enterprise aesthetic</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">380,000</span>
+    </div>
+    <div class="price-note">Complete build · Enterprise tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 2. VANTAGE -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">02</div>
+      <div class="industry-badge">Finance / Investment</div>
+    </div>
+    <div class="site-name">Vantage</div>
+    <a href="https://joshdei.github.io/vantage/" target="_blank" class="site-url">joshdei.github.io/vantage</a>
+    <p class="site-desc">Premium investment & wealth management firm landing page with sophisticated dark aesthetic, services overview, performance stats, and client trust signals.</p>
+    <ul class="features">
+      <li>Luxury dark-theme design system</li>
+      <li>Animated statistics & performance metrics</li>
+      <li>Services & investment approach sections</li>
+      <li>Trust indicators & client testimonials</li>
+      <li>Lead capture & contact form</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">320,000</span>
+    </div>
+    <div class="price-note">Complete build · Premium tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 3. VENDLY -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">03</div>
+      <div class="industry-badge">E-Commerce / SaaS</div>
+    </div>
+    <div class="site-name">Vendly</div>
+    <a href="https://joshdei.github.io/Vendly/" target="_blank" class="site-url">joshdei.github.io/Vendly</a>
+    <p class="site-desc">Modern e-commerce platform landing page with product showcase, feature highlights, pricing tiers, animated UI previews, and conversion-optimized copy.</p>
+    <ul class="features">
+      <li>Product showcase with animated previews</li>
+      <li>Pricing table with tier comparison</li>
+      <li>Feature-benefit sections</li>
+      <li>CTA funnel optimization</li>
+      <li>Integration & trust badge sections</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">290,000</span>
+    </div>
+    <div class="price-note">Complete build · Standard tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 4. DELICIOUS -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">04</div>
+      <div class="industry-badge">Food & Restaurant</div>
+    </div>
+    <div class="site-name">Delicious</div>
+    <a href="https://joshdei.github.io/Delicious/" target="_blank" class="site-url">joshdei.github.io/Delicious</a>
+    <p class="site-desc">Upscale restaurant and food brand website with rich imagery layouts, menu showcase, reservation system, chef story section, and social-ready gallery.</p>
+    <ul class="features">
+      <li>Full-screen hero with food photography layout</li>
+      <li>Menu showcase & featured dishes</li>
+      <li>Reservation / booking section</li>
+      <li>Chef & brand story section</li>
+      <li>Gallery & social integration</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">240,000</span>
+    </div>
+    <div class="price-note">Complete build · Standard tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 5. DAWNVISION -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">05</div>
+      <div class="industry-badge">Creative / Agency</div>
+    </div>
+    <div class="site-name">Dawnvision</div>
+    <a href="https://joshdei.github.io/Dawnvision1/" target="_blank" class="site-url">joshdei.github.io/Dawnvision1</a>
+    <p class="site-desc">Creative agency or brand studio website with bold typographic layouts, portfolio showcase, service offerings, team section, and strong brand identity design.</p>
+    <ul class="features">
+      <li>Bold editorial typography system</li>
+      <li>Portfolio / work showcase section</li>
+      <li>Services & capabilities layout</li>
+      <li>Team & about section</li>
+      <li>Contact & project inquiry form</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">270,000</span>
+    </div>
+    <div class="price-note">Complete build · Standard tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 6. HAVENLY -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">06</div>
+      <div class="industry-badge">Real Estate</div>
+    </div>
+    <div class="site-name">Havenly</div>
+    <a href="https://joshdei.github.io/havenly/" target="_blank" class="site-url">joshdei.github.io/havenly</a>
+    <p class="site-desc">Luxury real estate and property brand website with property listing previews, search functionality, agent profiles, neighborhood features, and lead generation forms.</p>
+    <ul class="features">
+      <li>Property listings & search UI</li>
+      <li>Neighbourhood highlights section</li>
+      <li>Agent profiles & credentials</li>
+      <li>Lead capture & valuation forms</li>
+      <li>Luxury photography-forward layout</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">310,000</span>
+    </div>
+    <div class="price-note">Complete build · Premium tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 7. TRANSPORT -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">07</div>
+      <div class="industry-badge">Logistics & Freight</div>
+    </div>
+    <div class="site-name">VeloHaul Transport</div>
+    <a href="https://joshdei.github.io/transport/" target="_blank" class="site-url">joshdei.github.io/transport</a>
+    <p class="site-desc">Professional freight & logistics brand site with animated service cards, fleet showcase, delivery stats, quote request system, and trust-focused copy architecture.</p>
+    <ul class="features">
+      <li>Animated delivery statistics counter</li>
+      <li>Services: freight, last-mile, cold chain, etc.</li>
+      <li>Fleet showcase section</li>
+      <li>Quote request / contact form</li>
+      <li>Process & why-us sections</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">260,000</span>
+    </div>
+    <div class="price-note">Complete build · Standard tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+  <!-- 8. AGRO -->
+  <div class="site-card fade-up">
+    <div class="card-top">
+      <div class="site-number">08</div>
+      <div class="industry-badge">Agriculture / AgroBusiness</div>
+    </div>
+    <div class="site-name">Agro</div>
+    <a href="https://joshdei.github.io/agro/" target="_blank" class="site-url">joshdei.github.io/agro</a>
+    <p class="site-desc">Clean agribusiness brand website covering produce, farm operations, B2B supply, sustainability messaging, and a modern visual identity for Nigeria's growing agro-economy.</p>
+    <ul class="features">
+      <li>Farm produce showcase & catalog</li>
+      <li>B2B supply inquiry section</li>
+      <li>Sustainability & operations story</li>
+      <li>Partnership / contact section</li>
+      <li>Modern, earthy visual identity</li>
+    </ul>
+    <div class="price-block">
+      <span class="price-currency">₦</span>
+      <span class="price-amount">230,000</span>
+    </div>
+    <div class="price-note">Complete build · Standard tier</div>
+    <a href="#contact" class="cta-btn">Get This Built</a>
+  </div>
+
+</div>
+
+<!-- SUMMARY TABLE -->
+<section class="summary-section fade-up" id="summary">
+  <h2>Price Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Website</th>
+        <th>Industry</th>
+        <th>Tier</th>
+        <th>Price (₦)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td>Ardex Energy</td>
+        <td>Oil & Gas</td>
+        <td><span class="badge">Enterprise</span></td>
+        <td class="price-cell">380,000</td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>Vantage</td>
+        <td>Finance</td>
+        <td><span class="badge">Premium</span></td>
+        <td class="price-cell">320,000</td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>Vendly</td>
+        <td>E-Commerce / SaaS</td>
+        <td><span class="badge">Standard</span></td>
+        <td class="price-cell">290,000</td>
+      </tr>
+      <tr>
+        <td>04</td>
+        <td>Delicious</td>
+        <td>Food & Restaurant</td>
+        <td><span class="badge">Standard</span></td>
+        <td class="price-cell">240,000</td>
+      </tr>
+      <tr>
+        <td>05</td>
+        <td>Dawnvision</td>
+        <td>Creative / Agency</td>
+        <td><span class="badge">Standard</span></td>
+        <td class="price-cell">270,000</td>
+      </tr>
+      <tr>
+        <td>06</td>
+        <td>Havenly</td>
+        <td>Real Estate</td>
+        <td><span class="badge">Premium</span></td>
+        <td class="price-cell">310,000</td>
+      </tr>
+      <tr>
+        <td>07</td>
+        <td>VeloHaul Transport</td>
+        <td>Logistics</td>
+        <td><span class="badge">Standard</span></td>
+        <td class="price-cell">260,000</td>
+      </tr>
+      <tr>
+        <td>08</td>
+        <td>Agro</td>
+        <td>Agriculture</td>
+        <td><span class="badge">Standard</span></td>
+        <td class="price-cell">230,000</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4">Total (All 8 Sites)</td>
+        <td class="price-cell">2,300,000</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:1.5rem; font-size:0.78rem; color: var(--muted); letter-spacing:0.05em;">
+    * Prices are for complete builds including design, development, content integration, and mobile responsiveness.<br>
+    * Domain registration & hosting not included. Custom features quoted separately.
+  </p>
+</section>
+
+<!-- CTA FOOTER -->
+<section class="cta-footer fade-up" id="contact">
+  <h2>Ready to build<br><em>your own?</em></h2>
+  <p>Let's talk about your project. We deliver custom websites that look this good — for your business.</p>
+  <a href="https://wa.me/2349000000000" class="big-btn">Chat on WhatsApp</a>
+</section>
+
+<footer class="footer-bar">
+  <span>© 2025 Daveris Tech</span>
+  <span>joshdei.github.io</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
